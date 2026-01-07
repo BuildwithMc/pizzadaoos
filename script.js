@@ -92,6 +92,15 @@ function initVideoBackground() {
             iconUnmute.classList.remove('hidden');
         }
     });
+
+    // Safety: Ensure it loops if something stops it
+    videoBg.addEventListener('pause', () => {
+        // console.log("Video paused, forcing play...");
+        videoBg.play().catch(e => console.error("Auto-resume failed:", e));
+    });
+
+    // Initial play attempt
+    videoBg.play().catch(e => console.log("Autoplay blocked:", e));
 }
 
 /* --- Clock & Countdown --- */
